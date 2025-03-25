@@ -1,30 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-// function DataComponent() {
-//   const [data, setData] = useState(null);
-
-//   useEffect(() => {
-//     fetch("http://127.0.0.1:5000/api/data")
-//       .then((response) => response.json())
-//       .then((data) => setData(data))
-//       .catch((error) => console.error("Error fetching data:", error));
-//   }, []);
-
-//   return <div>{data ? <p>{data.message}</p> : <p>Loading...</p>}</div>;
-// }
-
-// export default DataComponent;
-
-// import React, { useState } from "react";
-// import "./App.css";
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 function App() {
   const [note, setNote] = useState("6:30 - 8:30am Finish reading");
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/data")
+    fetch(`${API_BASE}`)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -34,7 +18,7 @@ function App() {
 
   const handleGenerate = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/generate-ics", {
+      const response = await fetch(`${API_BASE}/generate-ics`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,3 +71,4 @@ function App() {
 }
 
 export default App;
+// redeploy trigger
